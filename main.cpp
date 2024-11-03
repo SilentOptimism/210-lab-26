@@ -1,6 +1,22 @@
 #include <iostream>
+
+#include <set>
+#include <list>
+#include <vector>
+
 #include <chrono>
+
 using namespace std;
+
+void readIntoVector(vector<string> &data){
+
+}
+void readIntoSet(){
+
+}
+void readIntoList(){
+
+}
 
 int main() {
     
