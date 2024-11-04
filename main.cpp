@@ -39,6 +39,11 @@ int main() {
     list<string> list;
     set<string> set;
 
+    array<array<microseconds,3>, 15> averageTimesForFill;
+    array<array<microseconds,3>, 15> averageTimesForSort;
+    array<array<microseconds,3>, 15> averageTimesForInsertMid;
+    array<array<microseconds,3>, 15> averageTimesForDeleteMid;
+
     array<microseconds, 3> timesForFill = timedFillTest(vec, list, set);
     array<microseconds, 2> timesForSort = timedSortTest(vec, list);
     array<microseconds, 3> timesForInsertMid = timedInsertMidTest(vec, list, set);
