@@ -62,6 +62,7 @@ int main() {
         allRunTimesForDeleteMid.at(i) = timesForDeleteMid;
     }
     
+    // Calcuates average fill time
     for(int i = 0; i < runCount; i++){
         averageFillTime.at(0) += allRunTimesForFill[i].at(0).count();
         averageFillTime.at(1) += allRunTimesForFill[i].at(1).count();
@@ -71,9 +72,36 @@ int main() {
     averageFillTime.at(1) /= runCount;
     averageFillTime.at(2) /= runCount;
      
+    // Calcuates average sort time
+    for(int i = 0; i < runCount; i++){
+        averageSortTime.at(0) += allRunTimesForSort[i].at(0).count();
+        averageSortTime.at(1) += allRunTimesForSort[i].at(1).count();
+    }
+    averageSortTime.at(0) /= runCount;
+    averageSortTime.at(1) /= runCount;
     
+    // Calcuates average insert time
+    for(int i = 0; i < runCount; i++){
+        averageInsertTime.at(0) += allRunTimesForInsertMid[i].at(0).count();
+        averageInsertTime.at(1) += allRunTimesForInsertMid[i].at(1).count();
+        averageInsertTime.at(2) += allRunTimesForInsertMid[i].at(2).count();
+    }
+    averageInsertTime.at(0) /= runCount;
+    averageInsertTime.at(1) /= runCount;
+    averageInsertTime.at(2) /= runCount;
+
+    // Calcuates average delete time
+    for(int i = 0; i < runCount; i++){
+        averageDeleteTime.at(0) += allRunTimesForDeleteMid[i].at(0).count();
+        averageDeleteTime.at(1) += allRunTimesForDeleteMid[i].at(1).count();
+        averageDeleteTime.at(2) += allRunTimesForDeleteMid[i].at(2).count();
+    }
+    averageDeleteTime.at(0) /= runCount;
+    averageDeleteTime.at(1) /= runCount;
+    averageDeleteTime.at(2) /= runCount;
 
 
+    cout << "Number of Simulations: " << runCount << endl;
     cout << right << setw(9) << "Operation";
     cout << right << setw(9) << "Vector";
     cout << right << setw(9) << "List";
@@ -85,19 +113,19 @@ int main() {
     cout << right << setw(9) << averageFillTime.at(2);
     cout << "\n";
     cout << right << setw(9) << "Sort";
-    cout << right << setw(9);
-    cout << right << setw(9);
+    cout << right << setw(9) << averageSortTime.at(0);
+    cout << right << setw(9) << averageSortTime.at(1);
     cout << right << setw(9) << "-1";
     cout << "\n";
     cout << right << setw(9) << "Insert";
-    cout << right << setw(9);
-    cout << right << setw(9);
-    cout << right << setw(9);
+    cout << right << setw(9) << averageInsertTime.at(0);
+    cout << right << setw(9) << averageInsertTime.at(1);
+    cout << right << setw(9) << averageInsertTime.at(2);
     cout << "\n";
     cout << right << setw(9) << "Delete";
-    cout << right << setw(9);
-    cout << right << setw(9);
-    cout << right << setw(9);
+    cout << right << setw(9) << averageDeleteTime.at(0);
+    cout << right << setw(9) << averageDeleteTime.at(1);
+    cout << right << setw(9) << averageDeleteTime.at(2);
     cout << "\n";
 
 
