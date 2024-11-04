@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 
 #include <set>
@@ -42,6 +43,32 @@ int main() {
     array<microseconds, 2> timesForSort = timedSortTest(vec, list);
     array<microseconds, 3> timesForInsertMid = timedInsertMidTest(vec, list, set);
     array<microseconds, 3> timesForDeleteMid = timedDeleteMidTest(vec, list, set);
+
+    cout << right << setw(9) << "Operation";
+    cout << right << setw(9) << "Vector";
+    cout << right << setw(9) << "List";
+    cout << right << setw(9) << "Set";
+    cout << "\n";
+    cout << right << setw(9) << "Read";
+    cout << right << setw(9) << timesForFill[0].count();
+    cout << right << setw(9) << timesForFill[1].count();
+    cout << right << setw(9) << timesForFill[2].count();
+    cout << "\n";
+    cout << right << setw(9) << "Sort";
+    cout << right << setw(9) << timesForSort[0].count();
+    cout << right << setw(9) << timesForSort[1].count();
+    cout << right << setw(9) << "-1";
+    cout << "\n";
+    cout << right << setw(9) << "Insert";
+    cout << right << setw(9) << timesForInsertMid[0].count();
+    cout << right << setw(9) << timesForInsertMid[1].count();
+    cout << right << setw(9) << timesForInsertMid[2].count();
+    cout << "\n";
+    cout << right << setw(9) << "Delete";
+    cout << right << setw(9) << timesForDeleteMid[0].count();
+    cout << right << setw(9) << timesForDeleteMid[1].count();
+    cout << right << setw(9) << timesForDeleteMid[2].count();
+    cout << "\n";
 
 
     return 0;
