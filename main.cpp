@@ -8,7 +8,6 @@
 #include <array>
 
 #include <algorithm>
-
 #include <chrono>
 
 using namespace std;
@@ -35,19 +34,38 @@ array<microseconds,3> timedInsertMidTest(vector<string>&, list<string>&, set<str
 array<microseconds,3> timedDeleteMidTest(vector<string>&, list<string>&, set<string>&);
 
 int main() {
-    vector<string> vec;
-    list<string> list;
-    set<string> set;
+    int runCount = 15;
 
-    array<array<microseconds,3>, 15> averageTimesForFill;
-    array<array<microseconds,3>, 15> averageTimesForSort;
-    array<array<microseconds,3>, 15> averageTimesForInsertMid;
-    array<array<microseconds,3>, 15> averageTimesForDeleteMid;
+    array<microseconds,3> averageFillTime;
+    array<microseconds,3> averageSortTime;
+    array<microseconds,3> averageInsertTime;
+    array<microseconds,3> averageDeleteTime;
 
-    array<microseconds, 3> timesForFill = timedFillTest(vec, list, set);
-    array<microseconds, 2> timesForSort = timedSortTest(vec, list);
-    array<microseconds, 3> timesForInsertMid = timedInsertMidTest(vec, list, set);
-    array<microseconds, 3> timesForDeleteMid = timedDeleteMidTest(vec, list, set);
+    array<array<microseconds,3>, 15> allRunTimesForFill;
+    array<array<microseconds,3>, 15> allRunTimesForSort;
+    array<array<microseconds,3>, 15> allRunTimesForInsertMid;
+    array<array<microseconds,3>, 15> allRunTimesForDeleteMid;
+
+    for (int i = 0; i < runCount; i++){
+        vector<string> vec;
+        list<string> list;
+        set<string> set;
+
+        array<microseconds, 3> timesForFill = timedFillTest(vec, list, set);
+        array<microseconds, 2> timesForSort = timedSortTest(vec, list);
+        array<microseconds, 3> timesForInsertMid = timedInsertMidTest(vec, list, set);
+        array<microseconds, 3> timesForDeleteMid = timedDeleteMidTest(vec, list, set);
+
+        allRunTimesForFill.at(i) = timesForFill;
+        allRunTimesForSort.at(i) = timesForFill;
+        allRunTimesForInsertMid.at(i) = timesForFill;
+        allRunTimesForDeleteMid.at(i) = timesForDeleteMid;
+    }
+
+
+
+
+
 
     cout << right << setw(9) << "Operation";
     cout << right << setw(9) << "Vector";
