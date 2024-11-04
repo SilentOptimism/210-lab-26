@@ -64,7 +64,6 @@ microseconds fillUsingInsert(auto &data){
 
     return duration;
 }
-
 microseconds sortVec(vector<string> &data){
     auto start = high_resolution_clock::now();
     sort(data.begin(),data.end());
@@ -80,7 +79,6 @@ microseconds sortList(list<string> &data){
     microseconds duration = duration_cast<microseconds>(end-start);
     return duration;
 }
-
 microseconds insertMid(auto &data, string element){
     auto middle = data.begin();
     advance(middle, data.size()/2);
@@ -92,7 +90,6 @@ microseconds insertMid(auto &data, string element){
     microseconds duration = duration_cast<microseconds>(end - start);
     return duration;
 }
-
 microseconds insertSet(set<string> &data, string element){
     time_point start = steady_clock::now();
     data.insert(element);
@@ -101,6 +98,27 @@ microseconds insertSet(set<string> &data, string element){
     microseconds duration = duration_cast<microseconds> (end - start);
     return duration;
 }
+
+microseconds deleteMid(auto &data){
+    time_point start = steady_clock::now();
+
+    auto midIter = data.begin();
+    int midIndex = data.size()/2;
+
+    // For vectors this will simply move the ptr 
+    // For lists/sets it will have to actually iterate through each element
+    advance(midIter, midIndex);
+
+    data.erase(midIter);
+
+    time_point end = steady_clock::now();
+
+    microseconds duration = duration_cast<microseconds> (end - start);
+
+    return duration;
+}
+
+
 
 int main() {
     vector<string> vec;
@@ -122,7 +140,13 @@ int main() {
     cout << insertMid(vec, "TESTCODE").count() << endl;
     cout << insertMid(li, "TESTCODE").count() << endl;
     cout << insertSet(set, "TESTCODE").count() << endl;
-    cout << vec.at(vec.size()/2-1) << endl;
+
+    cout << endl;
+
+    cout << deleteMid(vec).count() << endl;
+    cout << deleteMid(li).count() << endl;
+    cout << deleteMid(set).count() << endl;
+
     
 
     return 0;
