@@ -36,10 +36,10 @@ array<microseconds,3> timedDeleteMidTest(vector<string>&, list<string>&, set<str
 int main() {
     int runCount = 15;
 
-    array<microseconds,3> averageFillTime;
-    array<microseconds,3> averageSortTime;
-    array<microseconds,3> averageInsertTime;
-    array<microseconds,3> averageDeleteTime;
+    array<int,3> averageFillTime;
+    array<int,3> averageSortTime;
+    array<int,3> averageInsertTime;
+    array<int,3> averageDeleteTime;
 
     array<array<microseconds,3>, 15> allRunTimesForFill;
     array<array<microseconds,3>, 15> allRunTimesForSort;
@@ -61,10 +61,17 @@ int main() {
         allRunTimesForInsertMid.at(i) = timesForFill;
         allRunTimesForDeleteMid.at(i) = timesForDeleteMid;
     }
-
-
-
-
+    
+    for(int i = 0; i < runCount; i++){
+        averageFillTime.at(0) += allRunTimesForFill[i].at(0).count();
+        averageFillTime.at(1) += allRunTimesForFill[i].at(1).count();
+        averageFillTime.at(2) += allRunTimesForFill[i].at(2).count();
+    }
+    averageFillTime.at(0) /= runCount;
+    averageFillTime.at(1) /= runCount;
+    averageFillTime.at(2) /= runCount;
+     
+    
 
 
     cout << right << setw(9) << "Operation";
@@ -73,24 +80,24 @@ int main() {
     cout << right << setw(9) << "Set";
     cout << "\n";
     cout << right << setw(9) << "Read";
-    cout << right << setw(9) << timesForFill[0].count();
-    cout << right << setw(9) << timesForFill[1].count();
-    cout << right << setw(9) << timesForFill[2].count();
+    cout << right << setw(9) << averageFillTime.at(0);
+    cout << right << setw(9) << averageFillTime.at(1);
+    cout << right << setw(9) << averageFillTime.at(2);
     cout << "\n";
     cout << right << setw(9) << "Sort";
-    cout << right << setw(9) << timesForSort[0].count();
-    cout << right << setw(9) << timesForSort[1].count();
+    cout << right << setw(9);
+    cout << right << setw(9);
     cout << right << setw(9) << "-1";
     cout << "\n";
     cout << right << setw(9) << "Insert";
-    cout << right << setw(9) << timesForInsertMid[0].count();
-    cout << right << setw(9) << timesForInsertMid[1].count();
-    cout << right << setw(9) << timesForInsertMid[2].count();
+    cout << right << setw(9);
+    cout << right << setw(9);
+    cout << right << setw(9);
     cout << "\n";
     cout << right << setw(9) << "Delete";
-    cout << right << setw(9) << timesForDeleteMid[0].count();
-    cout << right << setw(9) << timesForDeleteMid[1].count();
-    cout << right << setw(9) << timesForDeleteMid[2].count();
+    cout << right << setw(9);
+    cout << right << setw(9);
+    cout << right << setw(9);
     cout << "\n";
 
 
