@@ -8,23 +8,45 @@
 #include <algorithm>
 
 #include <chrono>
-#include <typeinfo>
 
 using namespace std;
 using namespace std::chrono;
 
-/// @brief Reads data into a container that had working pushback and returns the time it took for the calculation
+void fillList(list<string> &data);
+void fillVec(vector<string> &data);
+void fillSet(set<string> &data);
+
+void sortVec(vector<string> &data);
+void sortList(list<string> &data);
+
+void insertMidVec(vector<string> &data, string element);
+void insertMidList(list<string> &data, string element);
+void insertMidSet(set<string> &data, string element);
+
+void deleteMidVec(vector<string> &data);
+void deleteMidSet(set<string> &data);
+void deleteMidList(list<string> &data);
+
+int main() {
+    vector<string> vec;
+    list<string> li;
+    set<string> set;
+
+   
+
+    return 0;
+}
+
+
+/// @brief Reads data into a List that had working pushback and returns the time it took for the calculation
 /// @param data an empty vector
 /// @return a duration object containing time for caclulation
-microseconds fillUsingPushBack(auto &data){
-    microseconds fail;
-    auto start = high_resolution_clock::now();
-
+void fillList(list<string> &data){
     ifstream fin;
     fin.open("codes.txt");
     if(!fin){
         cout << "File opening error" << endl;
-        return fail;
+        return;
     }
 
     while(fin){
@@ -32,25 +54,33 @@ microseconds fillUsingPushBack(auto &data){
         getline(fin,code);
         data.push_back(code);
     }
-
-    auto end = high_resolution_clock::now();
-    microseconds duration = duration_cast<microseconds>(end - start);
-
-    return duration;
 }
-/// @brief Reads data into a set and returns the time it took for the calculation
-/// @param data an empty list
+/// @brief Reads data into a Vec that had working pushback and returns the time it took for the calculation
+/// @param data an empty vector
 /// @return a duration object containing time for caclulation
-microseconds fillUsingInsert(auto &data){
-
-    microseconds fail;
-    auto start = high_resolution_clock::now();
-
+void fillVec(vector<string> &data){
     ifstream fin;
     fin.open("codes.txt");
     if(!fin){
         cout << "File opening error" << endl;
-        return fail;
+        return;
+    }
+
+    while(fin){
+        string code;
+        getline(fin,code);
+        data.push_back(code);
+    }
+}
+/// @brief Reads data into a set and returns the time it took for the calculation
+/// @param data an empty list
+/// @return a duration object containing time for caclulation
+void fillSet(set<string> &data){
+    ifstream fin;
+    fin.open("codes.txt");
+    if(!fin){
+        cout << "File opening error" << endl;
+        return;
     }
 
     while(fin){
@@ -58,50 +88,45 @@ microseconds fillUsingInsert(auto &data){
         getline(fin,code);
         data.insert(code);
     }
-
-    auto end = high_resolution_clock::now();
-    microseconds duration = duration_cast<microseconds>(end - start);
-
-    return duration;
 }
-microseconds sortVec(vector<string> &data){
-    auto start = high_resolution_clock::now();
+
+/// @brief Sorts a Vector
+/// @param data The vector to be sorted
+void sortVec(vector<string> &data){
     sort(data.begin(),data.end());
-    auto end = high_resolution_clock::now();
-    microseconds duration = duration_cast<microseconds>(end-start);
-
-    return duration;
 }
-microseconds sortList(list<string> &data){
-    auto start = high_resolution_clock::now();
+/// @brief Sorts a List
+/// @param data The List to be sorted
+void sortList(list<string> &data){
     data.sort();
-    auto end = high_resolution_clock::now();
-    microseconds duration = duration_cast<microseconds>(end-start);
-    return duration;
 }
-microseconds insertMid(auto &data, string element){
+
+/// @brief Inserts an element to the middle of a vector
+/// @param data The vector to be inserted
+/// @param element The element that will be inserted
+void insertMidVec(vector<string> &data, string element){
     auto middle = data.begin();
     advance(middle, data.size()/2);
-
-    time_point start = steady_clock::now();
     data.insert(middle, element);
-    time_point end = steady_clock::now();
-
-    microseconds duration = duration_cast<microseconds>(end - start);
-    return duration;
 }
-microseconds insertSet(set<string> &data, string element){
-    time_point start = steady_clock::now();
+/// @brief Inserts an element to the middle of a List
+/// @param data The list to be inserted
+/// @param element The element that will be inserted
+void insertMidList(list<string> &data, string element){
+    auto middle = data.begin();
+    advance(middle, data.size()/2);
+    data.insert(middle, element);
+}
+/// @brief Inserts an element to the middle of a List
+/// @param data The set to be inserted
+/// @param element The element that will be inserted
+void insertMidSet(set<string> &data, string element){
     data.insert(element);
-    time_point end = steady_clock::now();
-
-    microseconds duration = duration_cast<microseconds> (end - start);
-    return duration;
 }
 
-microseconds deleteMid(auto &data){
-    time_point start = steady_clock::now();
-
+/// @brief Removes the middle element in a vector
+/// @param data The vector where the middle element will be removed
+void deleteMidVec(vector<string> &data){
     auto midIter = data.begin();
     int midIndex = data.size()/2;
 
@@ -110,46 +135,30 @@ microseconds deleteMid(auto &data){
     advance(midIter, midIndex);
 
     data.erase(midIter);
-
-    time_point end = steady_clock::now();
-
-    microseconds duration = duration_cast<microseconds> (end - start);
-
-    return duration;
 }
+/// @brief Removes the middle element in a set
+/// @param data The set where the middle element will be removed
+void deleteMidSet(set<string> &data){
+    auto midIter = data.begin();
+    int midIndex = data.size()/2;
 
+    // For vectors this will simply move the ptr 
+    // For lists/sets it will have to actually iterate through each element
+    advance(midIter, midIndex);
 
+    data.erase(midIter);
+}
+/// @brief Removes the middle element in a list
+/// @param data The list where the middle element will be removed
+void deleteMidList(list<string> &data){
+    auto midIter = data.begin();
+    int midIndex = data.size()/2;
 
-int main() {
-    vector<string> vec;
-    list<string> li;
-    set<string> set;
+    // For vectors this will simply move the ptr 
+    // For lists/sets it will have to actually iterate through each element
+    advance(midIter, midIndex);
 
-    cout << fillUsingPushBack(vec).count() << endl;
-    cout << fillUsingPushBack(li).count() << endl;
-    cout << fillUsingInsert(set).count() << endl;
-
-    cout << endl;
-
-    cout << sortVec(vec).count() << endl;
-    cout << sortList(li).count() << endl;
-    cout << -1 << endl;
-
-    cout << endl;
-
-    cout << insertMid(vec, "TESTCODE").count() << endl;
-    cout << insertMid(li, "TESTCODE").count() << endl;
-    cout << insertSet(set, "TESTCODE").count() << endl;
-
-    cout << endl;
-
-    cout << deleteMid(vec).count() << endl;
-    cout << deleteMid(li).count() << endl;
-    cout << deleteMid(set).count() << endl;
-
-    
-
-    return 0;
+    data.erase(midIter);
 }
 
 /* syntax examples:
